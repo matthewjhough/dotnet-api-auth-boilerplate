@@ -32,7 +32,9 @@ namespace mgm_app {
                 options.Audience = Configuration["Auth0:Audience"];
             });
 
-            services.AddMvc ();
+            services.AddMvc ().AddJsonOptions (
+                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );;
             var connection = @"Server=DESKTOP-H8CK89H\SQLEXPRESS;Database=dotnet.api;Trusted_Connection=True;ConnectRetryCount=0;Integrated Security=SSPI;";
             services.AddDbContext<ExampleContext> (options => options.UseSqlServer (connection));
         }
